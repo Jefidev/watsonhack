@@ -27,26 +27,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:java-sdk:4.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:alchemy:4.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:core:4.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.squareup.okhttp3:logging-interceptor:3.8.0" level="project" />
-    <orderEntry type="library" name="Maven: com.squareup.okhttp3:okhttp-urlconnection:3.8.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.5" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish.jersey.bundles.repackaged:jersey-jsr166e:2.25.1" level="project" />
-    <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:discovery:4.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:document-conversion:4.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:language-translator:4.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:natural-language-classifier:4.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:natural-language-understanding:4.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:personality-insights:4.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:retrieve-and-rank:4.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:speech-to-text:4.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:text-to-speech:4.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:tone-analyzer:4.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:tradeoff-analytics:4.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:visual-recognition:4.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:conversation:4.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:1.5.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:1.5.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:1.5.7.RELEASE" level="project" />
@@ -82,8 +62,6 @@
     <orderEntry type="library" name="Maven: com.github.messenger4j:messenger4j:0.8.0" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.1" level="project" />
-    <orderEntry type="library" name="Maven: com.squareup.okhttp3:okhttp:3.4.1" level="project" />
-    <orderEntry type="library" name="Maven: com.squareup.okio:okio:1.9.0" level="project" />
     <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:java-sdk:4.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:alchemy:4.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:core:4.0.0" level="project" />
@@ -104,5 +82,7 @@
     <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:tradeoff-analytics:4.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:visual-recognition:4.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.ibm.watson.developer_cloud:conversation:4.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.okhttp3:okhttp:3.9.0" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.okio:okio:1.13.0" level="project" />
   </component>
 </module>

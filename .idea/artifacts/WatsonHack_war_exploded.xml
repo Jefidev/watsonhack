@@ -36,8 +36,6 @@
           <element id="library" level="project" name="Maven: com.github.messenger4j:messenger4j:0.8.0" />
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.25" />
           <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.1" />
-          <element id="library" level="project" name="Maven: com.squareup.okhttp3:okhttp:3.4.1" />
-          <element id="library" level="project" name="Maven: com.squareup.okio:okio:1.9.0" />
           <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:java-sdk:4.0.0" />
           <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:alchemy:4.0.0" />
           <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:core:4.0.0" />
@@ -58,6 +56,8 @@
           <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:tradeoff-analytics:4.0.0" />
           <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:visual-recognition:4.0.0" />
           <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:conversation:4.0.0" />
+          <element id="library" level="project" name="Maven: com.squareup.okhttp3:okhttp:3.9.0" />
+          <element id="library" level="project" name="Maven: com.squareup.okio:okio:1.13.0" />
         </element>
       </element>
       <element id="directory" name="META-INF">
