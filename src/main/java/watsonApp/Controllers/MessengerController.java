@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import watsonApp.Services.ChatBotService;
 
 import java.util.Date;
 
@@ -26,6 +27,9 @@ import static com.github.messenger4j.MessengerPlatform.*;
 
 @RestController
 public class MessengerController {
+
+    @Autowired
+    ChatBotService chatBotService;
 
     private final MessengerReceiveClient receiveClient;
     private final MessengerSendClient sendClient;
@@ -105,7 +109,7 @@ public class MessengerController {
 
     @RequestMapping("/messenger")
     public String test(){
-        return "test";
+        return chatBotService.getChatbotResponse("Hello");
     }
 
     /**

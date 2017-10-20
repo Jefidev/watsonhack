@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class ChatBotService {
 
     private Conversation chatbot;
+    private final String workSpaceID = "09d2e181-d3ea-4980-a3d9-ab0d554bfd59";
 
     public ChatBotService(){
         chatbot = new Conversation(Conversation.VERSION_DATE_2016_07_11);
@@ -22,7 +23,7 @@ public class ChatBotService {
 
     public String getChatbotResponse (String message){
         InputData input = new InputData.Builder(message).build();
-        MessageOptions options = new MessageOptions.Builder().input(input).build();
+        MessageOptions options = new MessageOptions.Builder(workSpaceID).input(input).build();
         MessageResponse response = chatbot.message(options).execute();
         return response.toString();
     }
