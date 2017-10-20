@@ -38,6 +38,26 @@
           <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.1" />
           <element id="library" level="project" name="Maven: com.squareup.okhttp3:okhttp:3.4.1" />
           <element id="library" level="project" name="Maven: com.squareup.okio:okio:1.9.0" />
+          <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:java-sdk:4.0.0" />
+          <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:alchemy:4.0.0" />
+          <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:core:4.0.0" />
+          <element id="library" level="project" name="Maven: com.squareup.okhttp3:logging-interceptor:3.8.0" />
+          <element id="library" level="project" name="Maven: com.squareup.okhttp3:okhttp-urlconnection:3.8.0" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.5" />
+          <element id="library" level="project" name="Maven: org.glassfish.jersey.bundles.repackaged:jersey-jsr166e:2.25.1" />
+          <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:discovery:4.0.0" />
+          <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:document-conversion:4.0.0" />
+          <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:language-translator:4.0.0" />
+          <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:natural-language-classifier:4.0.0" />
+          <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:natural-language-understanding:4.0.0" />
+          <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:personality-insights:4.0.0" />
+          <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:retrieve-and-rank:4.0.0" />
+          <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:speech-to-text:4.0.0" />
+          <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:text-to-speech:4.0.0" />
+          <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:tone-analyzer:4.0.0" />
+          <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:tradeoff-analytics:4.0.0" />
+          <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:visual-recognition:4.0.0" />
+          <element id="library" level="project" name="Maven: com.ibm.watson.developer_cloud:conversation:4.0.0" />
         </element>
       </element>
       <element id="directory" name="META-INF">
