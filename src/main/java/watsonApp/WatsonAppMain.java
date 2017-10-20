@@ -2,7 +2,6 @@ package watsonApp;
 
 import com.github.messenger4j.MessengerPlatform;
 import com.github.messenger4j.send.MessengerSendClient;
-import com.ibm.watson.developer_cloud.conversation.v1.Conversation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
