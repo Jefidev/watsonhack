@@ -1,0 +1,7 @@
+applications:
+ - name: WatsonHack
+   random-route: true
+   path: target/WatsonHack-1.0-SNAPSHOT.war
+   memory: 256M
+   instances: 1
+   buildpack: java_buildpack
