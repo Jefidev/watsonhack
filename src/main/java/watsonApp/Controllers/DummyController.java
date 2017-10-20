@@ -1,7 +1,9 @@
 package watsonApp.Controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import watsonApp.Services.AccountService;
 
 /**
  * Created by jfink on 20/10/17.
@@ -10,8 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DummyController {
 
+    @Autowired
+    AccountService accountService;
+
     @RequestMapping("/")
     public String hello(){
-        return "Hello";
+        return accountService.hello();
     }
 }

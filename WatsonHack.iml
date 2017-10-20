@@ -59,5 +59,6 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.eclipse.jdt:ecj:3.12.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.springframework.boot:spring-boot-starter-tomcat:1.5.7.RELEASE" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:8.5.20" level="project" />
+    <orderEntry type="library" name="Maven: org.json:json:20170516" level="project" />
   </component>
 </module>
