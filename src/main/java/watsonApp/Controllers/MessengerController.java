@@ -5,6 +5,7 @@ import com.github.messenger4j.exceptions.MessengerApiException;
 import com.github.messenger4j.exceptions.MessengerIOException;
 import com.github.messenger4j.exceptions.MessengerVerificationException;
 import com.github.messenger4j.receive.MessengerReceiveClient;
+import com.github.messenger4j.receive.handlers.FallbackEventHandler;
 import com.github.messenger4j.receive.handlers.TextMessageEventHandler;
 import com.github.messenger4j.send.MessengerSendClient;
 import com.github.messenger4j.send.NotificationType;
@@ -34,7 +35,9 @@ public class MessengerController {
                                @Value("${messenger4j.verifyToken}") final String verifyToken,
                                final MessengerSendClient sendClient){
         this.receiveClient = MessengerPlatform.newReceiveClientBuilder(appSecret, verifyToken)
-                .onTextMessageEvent(newTextMessage()).build();
+                .onTextMessageEvent(newTextMessage())
+                .fallbackEventHandler(newFallbackEventHandler())
+                .build();
 
         this.sendClient = sendClient;
     }
@@ -46,6 +49,7 @@ public class MessengerController {
     public ResponseEntity<Void> handleCallback(@RequestBody final String payload,
                                                @RequestHeader(SIGNATURE_HEADER_NAME) final String signature) {
 
+        System.out.printf(payload);
         try {
             this.receiveClient.processCallbackPayload(payload, signature);
             return ResponseEntity.status(HttpStatus.OK).build();
@@ -100,6 +104,17 @@ public class MessengerController {
     @RequestMapping("/messenger")
     public String test(){
         return "test";
+    }
+
+    /**
+     * This handler is called when either the message is unsupported or when the event handler for the actual event type
+     * is not registered. In this showcase all event handlers are registered. Hence only in case of an
+     * unsupported message the fallback event handler is called.
+     */
+    private FallbackEventHandler newFallbackEventHandler() {
+        return event -> {
+            final String senderId = event.getSender().getId();
+        };
     }
 
 }
