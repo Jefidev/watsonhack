@@ -84,9 +84,9 @@ public class MessengerController {
             final NotificationType notificationType = NotificationType.REGULAR;
             final String metadata = "DEVELOPER_DEFINED_METADATA";
 
-            //TODO process le message avec watson
+            String reponse = chatBotService.getChatbotResponse(text);
 
-            this.sendClient.sendTextMessage(recipient, notificationType, text, metadata);
+            this.sendClient.sendTextMessage(recipient, notificationType, reponse, metadata);
         } catch (MessengerApiException | MessengerIOException e) {
             System.out.printf("Oups");
         }
