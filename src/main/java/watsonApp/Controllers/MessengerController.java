@@ -86,7 +86,7 @@ public class MessengerController {
             final String senderId = event.getSender().getId();
             final Date timestamp = event.getTimestamp();
 
-            account.append(senderId);
+
             watsonHandle(senderId, messageText);
         };
     }
@@ -171,31 +171,26 @@ public class MessengerController {
 
     public void watsonHandle(String recipientId, String message){
 
-        if(message.equals("hello")){
-            sendTextMessage(recipientId, message);
-            try {
-                sendGifMessage(recipientId);
-            } catch (MessengerApiException e) {
-                e.printStackTrace();
-            } catch (MessengerIOException e) {
-                e.printStackTrace();
-            }
+        MessageContainer mc = chatBotService.getChatbotResponse(message);
 
+        if(mc.getType().equals("button")){
+
+        }
+
+        if(mc.getType().equals("default")){
+            sendTextMessage(recipientId, mc.getText());
             return;
         }
 
-        if(!message.equals("buttons")){
-            sendTextMessage(recipientId, message);
-            return;
-        }
+        sendTextMessage(recipientId, "Case not handled : " + mc.getType());
+    }
 
-        try {
-            sendButtonMessage(recipientId);
-        } catch (MessengerApiException e) {
-            e.printStackTrace();
-        } catch (MessengerIOException e) {
-            e.printStackTrace();
-        }
+
+
+
+    public void handleButtonCase(String recipientID, MessageContainer mc){
+
+        
 
     }
 }
