@@ -1,5 +1,7 @@
 package watsonApp.Beans;
 
+import java.util.Date;
+
 public class Transaction{
 
     private int transactionId;
@@ -8,6 +10,7 @@ public class Transaction{
     private String infoOtherAccount;
     private boolean from; /* = true if it's the other account who execute the transaction, else false.*/
     private double amount;
+    private Date date;
     private String communication;
 
     public Transaction(int transactionId, Account account, String otherAccount, String infoOtherAccount, boolean from,
@@ -70,6 +73,14 @@ public class Transaction{
 
     public void setFrom(boolean from) {
         this.from = from;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getCommunication() {
