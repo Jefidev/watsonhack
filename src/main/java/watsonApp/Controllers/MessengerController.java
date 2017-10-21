@@ -6,6 +6,7 @@ import com.github.messenger4j.exceptions.MessengerIOException;
 import com.github.messenger4j.exceptions.MessengerVerificationException;
 import com.github.messenger4j.receive.MessengerReceiveClient;
 import com.github.messenger4j.receive.handlers.FallbackEventHandler;
+import com.github.messenger4j.receive.handlers.PostbackEventHandler;
 import com.github.messenger4j.receive.handlers.QuickReplyMessageEventHandler;
 import com.github.messenger4j.receive.handlers.TextMessageEventHandler;
 import com.github.messenger4j.send.MessengerSendClient;
@@ -52,9 +53,10 @@ public class MessengerController {
     public MessengerController(@Value("${messenger4j.appSecret}") final String appSecret,
                                @Value("${messenger4j.verifyToken}") final String verifyToken,
                                final MessengerSendClient sendClient){
+
         this.receiveClient = MessengerPlatform.newReceiveClientBuilder(appSecret, verifyToken)
                 .onTextMessageEvent(newTextMessage())
-                .onQuickReplyMessageEvent(newQuickReplyMessageEventHandler())
+                .onPostbackEvent(newPostbackEventHandler())
                 .fallbackEventHandler(newFallbackEventHandler())
                 .build();
 
@@ -107,9 +109,7 @@ public class MessengerController {
             final NotificationType notificationType = NotificationType.REGULAR;
             final String metadata = "DEVELOPER_DEFINED_METADATA";
 
-            MessageContainer reponse = chatBotService.getChatbotResponse(text);
-
-            this.sendClient.sendTextMessage(recipient, notificationType, "bleh", metadata);
+            this.sendClient.sendTextMessage(recipient, notificationType, text, metadata);
         } catch (MessengerApiException | MessengerIOException e) {
             System.out.printf("Oups");
         }
@@ -142,16 +142,18 @@ public class MessengerController {
     }
 
 
-    private QuickReplyMessageEventHandler newQuickReplyMessageEventHandler() {
+    private PostbackEventHandler newPostbackEventHandler() {
         return event -> {
 
             final String senderId = event.getSender().getId();
-            final String messageId = event.getMid();
-            final String quickReplyPayload = event.getQuickReply().getPayload();
+            final String recipientId = event.getRecipient().getId();
+            final String payload = event.getPayload();
+            final Date timestamp = event.getTimestamp();
 
-            sendTextMessage(senderId, "Quick reply tapped");
+            sendTextMessage(senderId, payload);
         };
     }
+
 
     /**
      * This handler is called when either the message is unsupported or when the event handler for the actual event type

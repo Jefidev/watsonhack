@@ -23,5 +23,5 @@ public class DummyController {
     public String hello(){
         return accountService.hello();
     }
-    
+
 }
