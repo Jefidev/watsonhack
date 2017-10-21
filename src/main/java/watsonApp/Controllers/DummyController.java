@@ -21,7 +21,7 @@ public class DummyController {
 
     @RequestMapping("/")
     public String hello(){
-        return accountService.hello() + "7";
+        return accountService.hello() + "9";
     }
 
 }

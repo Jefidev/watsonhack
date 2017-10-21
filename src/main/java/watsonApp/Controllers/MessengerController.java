@@ -193,8 +193,21 @@ public class MessengerController {
 
         if(mc.getContainer().equals("listAccount")){
             //Fetching all the account
-            ArrayList<Account> accList = account.getAccounts(account.getClient(recipientID));
+            List<Account> accList = account.getAccounts(account.getClient(recipientID));
+            Button.ListBuilder b = Button.newListBuilder();
 
+            for(Account a :accList){
+                b.addPostbackButton(a.getAccountId(), a.getAccountId());
+            }
+
+            final ButtonTemplate buttonTemplate = ButtonTemplate.newBuilder(mc.getText(), b.build()).build();
+            try {
+                this.sendClient.sendTemplate(recipientID, buttonTemplate);
+            } catch (MessengerApiException e) {
+                e.printStackTrace();
+            } catch (MessengerIOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
