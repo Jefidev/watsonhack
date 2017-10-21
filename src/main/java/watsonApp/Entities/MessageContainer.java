@@ -17,10 +17,9 @@ public class MessageContainer {
     private String check;
     private JSONObject jsonObject;
     private String type;
+    private String container;
 
-    public String getType() {
-        return type;
-    }
+
 
     public MessageContainer(JSONObject json){
         type ="default";
@@ -49,10 +48,25 @@ public class MessageContainer {
             for (int i = 0; i < array.length(); i++) {
                 placeHolder[i]=array.getString(i);
             }
+            type="placeHolder";
         }
         catch (Exception e){}
 
+        try{
+            container=output.getString("container");}
+        catch (Exception e){}
 
+
+
+    }
+
+    public String getContainer() {
+        return container;
+    }
+
+
+    public String getType() {
+        return type;
     }
 
 
