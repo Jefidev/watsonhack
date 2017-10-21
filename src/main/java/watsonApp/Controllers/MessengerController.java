@@ -140,9 +140,9 @@ public class MessengerController {
 
     @RequestMapping("/messenger")
     public String test(){
-        chatBotService.getChatbotResponse("Hello");
+        MessageContainer mc = chatBotService.getChatbotResponse("Hello");
 
-        return "bleh";
+        return mc.getText();
     }
 
 
@@ -176,6 +176,7 @@ public class MessengerController {
 
         if(mc.getType().equals("button")){
             handleButtonCase(recipientId, mc);
+            return;
         }
 
         if(mc.getType().equals("default")){
@@ -183,7 +184,8 @@ public class MessengerController {
             return;
         }
 
-        sendTextMessage(recipientId, "Case not handled : " + mc.getType());
+        String error = "Case not handled " + mc.getType();
+        sendTextMessage(recipientId, error);
     }
 
 
@@ -197,7 +199,7 @@ public class MessengerController {
             Button.ListBuilder b = Button.newListBuilder();
 
             for(Account a :accList){
-                b.addPostbackButton(a.getAccountId(), a.getAccountId());
+                b.addPostbackButton("account "+ a.getAccountId(), a.getAccountId());
             }
 
             final ButtonTemplate buttonTemplate = ButtonTemplate.newBuilder(mc.getText(), b.build()).build();
@@ -209,5 +211,8 @@ public class MessengerController {
                 e.printStackTrace();
             }
         }
+
+
+        sendTextMessage(recipientID, "Container button not handled");
     }
 }
