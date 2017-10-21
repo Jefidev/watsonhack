@@ -18,6 +18,7 @@ public class MessageContainer {
     private JSONObject jsonObject;
     private String type;
     private String container;
+    private String accountNumber;
 
 
 
@@ -55,6 +56,10 @@ public class MessageContainer {
         try{
             container=output.getString("container");}
         catch (Exception e){}
+
+        try{
+            type=output.getString("type");
+        }catch (Exception e){}
 
 
 
