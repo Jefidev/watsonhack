@@ -115,6 +115,9 @@ public class MessengerController {
         }
     }
 
+    private void sendGifMessage(String recipientId) throws MessengerApiException, MessengerIOException {
+        this.sendClient.sendImageAttachment(recipientId, " https://media.giphy.com/media/l46CjoMYO5n2hQnWE/giphy.gif");
+    }
 
     /**
      * Webhook verification endpoint.
@@ -168,6 +171,19 @@ public class MessengerController {
 
     public void watsonHandle(String recipientId, String message){
 
+        if(message.equals("hello")){
+            sendTextMessage(recipientId, message);
+            try {
+                sendGifMessage(recipientId);
+            } catch (MessengerApiException e) {
+                e.printStackTrace();
+            } catch (MessengerIOException e) {
+                e.printStackTrace();
+            }
+
+            return;
+        }
+
         if(!message.equals("buttons")){
             sendTextMessage(recipientId, message);
             return;
@@ -182,5 +198,4 @@ public class MessengerController {
         }
 
     }
-
 }
