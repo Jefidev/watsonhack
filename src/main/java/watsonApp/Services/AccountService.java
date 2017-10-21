@@ -30,15 +30,15 @@ public class AccountService {
         clients.add(simon);
 
         accounts = new ArrayList<>();
-        Account a1 = new Account("1230 0000 0000 0000 1 N1", "BE36 7777 5555 5555",40.04, jerome);
-        Account a2 = new Account("1236 0000 0000 0000 1 N1", "BE36 2222 5555 5555",6739, jerome);
-        Account b1 = new Account("7880 0000 0000 0000 1 N1", "BE36 3333 5555 5555",13.6, sophie);
-        Account b2 = new Account("7894 0000 0000 0000 1 N1", "BE36 8888 5555 5555",2431.03, sophie);
-        Account c1 = new Account("5612 0000 0000 0000 1 N1", "BE36 5555 5555 5555",4.32, simon);
-        Account c2 = new Account("5614 0000 0000 0000 1 N1", "BE36 4444 5555 5555",11323.99, simon);
-        Account c3 = new Account("5616 0000 0000 0000 1 N1", "BE36 6666 5555 5555",89.2, simon);
-        Account d1 = new Account("1599 0000 0000 0000 1 N1", "BE36 9999 5555 5555",250.11, francois);
-        Account d2 = new Account("1597 0000 0000 0000 1 N1", "BE36 1111 5555 5555",2.5, francois);
+        Account a1 = new Account("00000", "BE36 7777 5555 5555",40.04, jerome);
+        Account a2 = new Account("12345", "BE36 2222 5555 5555",6739, jerome);
+        Account b1 = new Account("99999", "BE36 3333 5555 5555",13.6, sophie);
+        Account b2 = new Account("88888", "BE36 8888 5555 5555",2431.03, sophie);
+        Account c1 = new Account("77777", "BE36 5555 5555 5555",4.32, simon);
+        Account c2 = new Account("66666", "BE36 4444 5555 5555",11323.99, simon);
+        Account c3 = new Account("55555", "BE36 6666 5555 5555",89.2, simon);
+        Account d1 = new Account("44444", "BE36 9999 5555 5555",250.11, francois);
+        Account d2 = new Account("33333", "BE36 1111 5555 5555",2.5, francois);
         accounts.add(a1);
         accounts.add(a2);
         accounts.add(b1);
