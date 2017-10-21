@@ -17,7 +17,7 @@ import java.util.List;
 public class DummyController {
 
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
 
     @RequestMapping("/")
     public String hello(){

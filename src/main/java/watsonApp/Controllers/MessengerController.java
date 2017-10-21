@@ -175,7 +175,7 @@ public class MessengerController {
         MessageContainer mc = chatBotService.getChatbotResponse(message);
 
         if(mc.getType().equals("button")){
-
+            handleButtonCase(recipientId, mc);
         }
 
         if(mc.getType().equals("default")){
