@@ -3,8 +3,7 @@ package watsonApp.Services;
 import org.springframework.stereotype.Service;
 import watsonApp.Beans.*;
 import java.util.ArrayList;
-import java.util.Date;
-import java.time.*;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,9 +60,20 @@ public class AccountService {
         LocalDateTime date9 = LocalDateTime.of(2017, 7,5,14,1);
         LocalDateTime date10 = LocalDateTime.of(2017, 8,25,12,32);
         LocalDateTime date11 = LocalDateTime.of(2017, 7,5,14,32);
+
         transactions = new ArrayList<>();
-        transactions.add(new Transaction("a", a1, "BE36 4444 5555 5555",
-                "Remboursement Burger King",true, 13.99, new Date()));
+        transactions.add(new Transaction("a", a2, "BE36 4444 5555 5555",
+                "Simon Genin",false, 25.3, date1));
+        transactions.add(new Transaction("b", c2, "BE36 7777 5555 5555",
+                "Jérôme Fink",true, 25.3, date1));
+        transactions.add(new Transaction("c", a2, "BE36 4444 5555 3333",
+                "Burger King",false, 13.99, date1));
+        transactions.add(new Transaction("d", a2, "BE36 7777 5555 1111",
+                "Colruyt Namur",false, 45.69, date1));
+        transactions.add(new Transaction("e", a1, "BE36 9999 5555 5555",
+                "François Georis",true, 12.3, date1));
+        transactions.add(new Transaction("f", d1, "BE36 7777 5555 5555",
+                "Jérôme Fink",false, 12.3, date1));
 
     }
 
@@ -79,7 +89,7 @@ public class AccountService {
         return accounts.stream().filter(a ->  a.getIban().equals(iban)).findFirst().get();
     }
 
-    public List getAccounts(Client client){
+    public List<Account> getAccounts(Client client){
         return accounts.stream().filter(a -> a.getClient().equals(client)).collect(Collectors.toList());
     }
 
@@ -87,8 +97,8 @@ public class AccountService {
         return transactions.stream().filter(t -> t.getTransactionId().equals(transactionId)).findFirst().get();
     }
 
-    public List getTransactions(Client client, Account account, String otherAccount, String infoOtherAccount,
-                                double amount1, double amount2, Date date1, Date date2, String communication){
+    public List<Transaction> getTransactions(Client client, Account account, String otherAccount, String infoOtherAccount,
+                                double amount1, double amount2, LocalDateTime date1, LocalDateTime date2, String communication){
         return null;//transactions.stream().filter().collect(Collectors.toList());
     }
 

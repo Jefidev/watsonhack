@@ -28,6 +28,7 @@ import watsonApp.Entities.MessageContainer;
 import watsonApp.Services.AccountService;
 import watsonApp.Services.ChatBotService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -86,7 +87,7 @@ public class MessengerController {
             final String senderId = event.getSender().getId();
             final Date timestamp = event.getTimestamp();
 
-            account.append(senderId);
+
             watsonHandle(senderId, messageText);
         };
     }
@@ -171,31 +172,42 @@ public class MessengerController {
 
     public void watsonHandle(String recipientId, String message){
 
-        if(message.equals("hello")){
-            sendTextMessage(recipientId, message);
+        MessageContainer mc = chatBotService.getChatbotResponse(message);
+
+        if(mc.getType().equals("button")){
+            handleButtonCase(recipientId, mc);
+        }
+
+        if(mc.getType().equals("default")){
+            sendTextMessage(recipientId, mc.getText());
+            return;
+        }
+
+        sendTextMessage(recipientId, "Case not handled : " + mc.getType());
+    }
+
+
+
+
+    public void handleButtonCase(String recipientID, MessageContainer mc){
+
+        if(mc.getContainer().equals("listAccount")){
+            //Fetching all the account
+            List<Account> accList = account.getAccounts(account.getClient(recipientID));
+            Button.ListBuilder b = Button.newListBuilder();
+
+            for(Account a :accList){
+                b.addPostbackButton(a.getAccountId(), a.getAccountId());
+            }
+
+            final ButtonTemplate buttonTemplate = ButtonTemplate.newBuilder(mc.getText(), b.build()).build();
             try {
-                sendGifMessage(recipientId);
+                this.sendClient.sendTemplate(recipientID, buttonTemplate);
             } catch (MessengerApiException e) {
                 e.printStackTrace();
             } catch (MessengerIOException e) {
                 e.printStackTrace();
             }
-
-            return;
         }
-
-        if(!message.equals("buttons")){
-            sendTextMessage(recipientId, message);
-            return;
-        }
-
-        try {
-            sendButtonMessage(recipientId);
-        } catch (MessengerApiException e) {
-            e.printStackTrace();
-        } catch (MessengerIOException e) {
-            e.printStackTrace();
-        }
-
     }
 }

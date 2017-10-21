@@ -17,11 +17,11 @@ import java.util.List;
 public class DummyController {
 
     @Autowired
-    AccountService accountService;
+    private AccountService accountService;
 
     @RequestMapping("/")
     public String hello(){
-        return accountService.hello() + "5";
+        return accountService.hello() + "9";
     }
 
 }

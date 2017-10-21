@@ -1,6 +1,6 @@
 package watsonApp.Beans;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Transaction{
 
@@ -8,13 +8,14 @@ public class Transaction{
     private Account account;
     private String otherAccount;
     private String infoOtherAccount;
-    private boolean from; /* = true if it's the other account who execute the transaction, else false.*/
+    private boolean from; /* = true if it's the other account who execute the transaction (so, if it is a money entry),
+                               else false.*/
     private double amount;
-    private Date date;
+    private LocalDateTime date;
     private String communication;
 
     public Transaction(String transactionId, Account account, String otherAccount, String infoOtherAccount, boolean from,
-                        double amount, Date date){
+                        double amount, LocalDateTime date){
         this.transactionId = transactionId;
         this.account = account;
         this.otherAccount = otherAccount;
@@ -76,11 +77,11 @@ public class Transaction{
         this.from = from;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
