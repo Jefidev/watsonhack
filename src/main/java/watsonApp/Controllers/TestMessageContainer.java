@@ -46,7 +46,7 @@ public class TestMessageContainer {
 
     @RequestMapping("/type")
     public String type(){
-        MessageContainer messageContainer=chatBotService.getChatbotResponse("balance account 1");
+        MessageContainer messageContainer=chatBotService.getChatbotResponse("balance ");
 
         return messageContainer.getType().toString();
     }
