@@ -23,9 +23,5 @@ public class DummyController {
     public String hello(){
         return accountService.hello();
     }
-
-    @RequestMapping("/clientID")
-    public List<String> clientID(){
-        return accountService.getDummy();
-    }
+    
 }
