@@ -3,8 +3,7 @@ package watsonApp.Services;
 import org.springframework.stereotype.Service;
 import watsonApp.Beans.*;
 import java.util.ArrayList;
-import java.util.Date;
-import java.time.*;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,9 +60,23 @@ public class AccountService {
         LocalDateTime date9 = LocalDateTime.of(2017, 7,5,14,1);
         LocalDateTime date10 = LocalDateTime.of(2017, 8,25,12,32);
         LocalDateTime date11 = LocalDateTime.of(2017, 7,5,14,32);
+
         transactions = new ArrayList<>();
         transactions.add(new Transaction("a", a1, "BE36 4444 5555 5555",
-                "Remboursement Burger King",true, 13.99, new Date()));
+                "Simon Genin",true, 25.3, date1));
+        transactions.add(new Transaction("a", c2, "BE36 7777 5555 5555",
+                "Jérôme Fink",false, 25.3, date1));
+
+        transactions.add(new Transaction("a", a1, "BE36 4444 5555 5555",
+                "Burger King",true, 13.99, date1));
+        transactions.add(new Transaction("a", c2, "BE36 7777 5555 5555",
+                "Jérôme Fink",false, 13.99, date1));
+
+        transactions.add(new Transaction("a", a1, "BE36 4444 5555 5555",
+                "Simon Genin",true, 13.99, date1));
+        transactions.add(new Transaction("a", c2, "BE36 7777 5555 5555",
+                "Jérôme Fink",false, 13.99, date1));
+
 
     }
 
@@ -79,7 +92,7 @@ public class AccountService {
         return accounts.stream().filter(a ->  a.getIban().equals(iban)).findFirst().get();
     }
 
-    public List getAccounts(Client client){
+    public List<Account> getAccounts(Client client){
         return accounts.stream().filter(a -> a.getClient().equals(client)).collect(Collectors.toList());
     }
 
@@ -88,7 +101,7 @@ public class AccountService {
     }
 
     public List getTransactions(Client client, Account account, String otherAccount, String infoOtherAccount,
-                                double amount1, double amount2, Date date1, Date date2, String communication){
+                                double amount1, double amount2, LocalDateTime date1, LocalDateTime date2, String communication){
         return null;//transactions.stream().filter().collect(Collectors.toList());
     }
 
