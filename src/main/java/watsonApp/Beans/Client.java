@@ -7,6 +7,12 @@ public class Client {
     private String firstname;
     private Account account;
 
+    public Client(String clientId, String lastname, String firstname) {
+        this.clientId = clientId;
+        this.lastname = lastname;
+        this.firstname = firstname;
+    }
+
     public String getClientId() {
         return clientId;
     }
