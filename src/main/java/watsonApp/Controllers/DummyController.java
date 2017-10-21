@@ -7,6 +7,7 @@ import watsonApp.Entities.MessageContainer;
 import watsonApp.Services.AccountService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by jfink on 20/10/17.
@@ -21,5 +22,10 @@ public class DummyController {
     @RequestMapping("/")
     public String hello(){
         return accountService.hello();
+    }
+
+    @RequestMapping("/clientID")
+    public List<String> clientID(){
+        return accountService.getDummy();
     }
 }

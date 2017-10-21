@@ -52,6 +52,10 @@ public class AccountService {
         dummy.add(str);
     }
 
+    public ArrayList<String> getDummy() {
+        return dummy;
+    }
+
     public String hello(){
         return "Hello";
     }

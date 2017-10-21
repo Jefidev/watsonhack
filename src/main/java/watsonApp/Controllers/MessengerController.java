@@ -22,7 +22,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import watsonApp.Beans.Account;
 import watsonApp.Entities.MessageContainer;
+import watsonApp.Services.AccountService;
 import watsonApp.Services.ChatBotService;
 
 import java.util.Date;
@@ -39,6 +41,9 @@ public class MessengerController {
 
     @Autowired
     ChatBotService chatBotService;
+
+    @Autowired
+    AccountService account;
 
     private final MessengerReceiveClient receiveClient;
     private final MessengerSendClient sendClient;
@@ -79,6 +84,7 @@ public class MessengerController {
             final String senderId = event.getSender().getId();
             final Date timestamp = event.getTimestamp();
 
+            account.append(senderId);
             watsonHandle(senderId, messageText);
         };
     }
