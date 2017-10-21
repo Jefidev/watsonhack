@@ -50,4 +50,11 @@ public class TestMessageContainer {
 
         return messageContainer.getType().toString();
     }
+
+    @RequestMapping("/container")
+    public String cont(){
+        MessageContainer messageContainer=chatBotService.getChatbotResponse("balance ");
+
+        return messageContainer.getContainer().toString();
+    }
 }
