@@ -6,10 +6,13 @@ import com.github.messenger4j.exceptions.MessengerIOException;
 import com.github.messenger4j.exceptions.MessengerVerificationException;
 import com.github.messenger4j.receive.MessengerReceiveClient;
 import com.github.messenger4j.receive.handlers.FallbackEventHandler;
+import com.github.messenger4j.receive.handlers.QuickReplyMessageEventHandler;
 import com.github.messenger4j.receive.handlers.TextMessageEventHandler;
 import com.github.messenger4j.send.MessengerSendClient;
 import com.github.messenger4j.send.NotificationType;
 import com.github.messenger4j.send.Recipient;
+import com.github.messenger4j.send.buttons.Button;
+import com.github.messenger4j.send.templates.ButtonTemplate;
 import com.ibm.watson.developer_cloud.conversation.v1.Conversation;
 import com.ibm.watson.developer_cloud.conversation.v1.model.InputData;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
@@ -23,6 +26,7 @@ import watsonApp.Entities.MessageContainer;
 import watsonApp.Services.ChatBotService;
 
 import java.util.Date;
+import java.util.List;
 
 import static com.github.messenger4j.MessengerPlatform.*;
 
@@ -45,6 +49,7 @@ public class MessengerController {
                                final MessengerSendClient sendClient){
         this.receiveClient = MessengerPlatform.newReceiveClientBuilder(appSecret, verifyToken)
                 .onTextMessageEvent(newTextMessage())
+                .onQuickReplyMessageEvent(newQuickReplyMessageEventHandler())
                 .fallbackEventHandler(newFallbackEventHandler())
                 .build();
 
@@ -58,7 +63,6 @@ public class MessengerController {
     public ResponseEntity<Void> handleCallback(@RequestBody final String payload,
                                                @RequestHeader(SIGNATURE_HEADER_NAME) final String signature) {
 
-        System.out.printf(payload);
         try {
             this.receiveClient.processCallbackPayload(payload, signature);
             return ResponseEntity.status(HttpStatus.OK).build();
@@ -75,8 +79,20 @@ public class MessengerController {
             final String senderId = event.getSender().getId();
             final Date timestamp = event.getTimestamp();
 
-            sendTextMessage(senderId, messageText);
+            watsonHandle(senderId, messageText);
         };
+    }
+
+
+    private void sendButtonMessage(String recipientId) throws MessengerApiException, MessengerIOException {
+        final List<Button> buttons = Button.newListBuilder()
+                .addPostbackButton("Account 1", "1").toList()
+                .addPostbackButton("Account 2", "2").toList()
+                .addPostbackButton("Account 3", "3").toList()
+                .build();
+
+        final ButtonTemplate buttonTemplate = ButtonTemplate.newBuilder("Which account", buttons).build();
+        this.sendClient.sendTemplate(recipientId, buttonTemplate);
     }
 
     private void sendTextMessage(String recipientId, String text) {
@@ -119,6 +135,18 @@ public class MessengerController {
         return "bleh";
     }
 
+
+    private QuickReplyMessageEventHandler newQuickReplyMessageEventHandler() {
+        return event -> {
+
+            final String senderId = event.getSender().getId();
+            final String messageId = event.getMid();
+            final String quickReplyPayload = event.getQuickReply().getPayload();
+
+            sendTextMessage(senderId, "Quick reply tapped");
+        };
+    }
+
     /**
      * This handler is called when either the message is unsupported or when the event handler for the actual event type
      * is not registered. In this showcase all event handlers are registered. Hence only in case of an
@@ -128,6 +156,23 @@ public class MessengerController {
         return event -> {
             final String senderId = event.getSender().getId();
         };
+    }
+
+    public void watsonHandle(String recipientId, String message){
+
+        if(!message.equals("buttons")){
+            sendTextMessage(recipientId, message);
+            return;
+        }
+
+        try {
+            sendButtonMessage(recipientId);
+        } catch (MessengerApiException e) {
+            e.printStackTrace();
+        } catch (MessengerIOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

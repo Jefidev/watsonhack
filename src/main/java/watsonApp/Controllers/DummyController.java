@@ -3,7 +3,10 @@ package watsonApp.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import watsonApp.Entities.MessageContainer;
 import watsonApp.Services.AccountService;
+
+import java.util.ArrayList;
 
 /**
  * Created by jfink on 20/10/17.
@@ -19,6 +22,4 @@ public class DummyController {
     public String hello(){
         return accountService.hello();
     }
-
-
 }
