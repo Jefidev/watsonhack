@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Transaction{
 
-    private int transactionId;
+    private String transactionId;
     private Account account;
     private String otherAccount;
     private String infoOtherAccount;
@@ -13,21 +13,22 @@ public class Transaction{
     private Date date;
     private String communication;
 
-    public Transaction(int transactionId, Account account, String otherAccount, String infoOtherAccount, boolean from,
-                        double amount){
+    public Transaction(String transactionId, Account account, String otherAccount, String infoOtherAccount, boolean from,
+                        double amount, Date date){
         this.transactionId = transactionId;
         this.account = account;
         this.otherAccount = otherAccount;
         this.infoOtherAccount = infoOtherAccount;
         this.from = from;
         this.amount = amount;
+        this.date = date;
     }
 
-    public int getTransactionId() {
+    public String getTransactionId() {
         return transactionId;
     }
 
-    public void setTransactionId(int transactionId) {
+    public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
     }
 
