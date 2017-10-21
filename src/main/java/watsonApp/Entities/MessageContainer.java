@@ -49,7 +49,6 @@ public class MessageContainer {
             for (int i = 0; i < array.length(); i++) {
                 placeHolder[i]=array.getString(i);
             }
-            type="placeHolder";
         }
         catch (Exception e){}
 
