@@ -38,6 +38,9 @@ public class ChatBotService {
         JSONObject output = json.getJSONObject("output");
         JSONArray array = output.getJSONArray("text");
 
+
+        //TODO switch case
+
         return array.getString(0);
     }
 
