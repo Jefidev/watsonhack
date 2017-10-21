@@ -40,4 +40,13 @@ public class ChatBotService {
         return new MessageContainer(json);
     }
 
+    public String render(String template, List<String> values) {
+        int size = values.size();
+
+        for (int i = 0 ; i < size ; i++) {
+            template = template.replace("&"+Integer.toString(i)+"&", values.get(i));
+        }
+        return template;
+    }
+
 }

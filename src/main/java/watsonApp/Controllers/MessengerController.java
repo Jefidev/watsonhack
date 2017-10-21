@@ -179,6 +179,12 @@ public class MessengerController {
             return;
         }
 
+        if(mc.getType().equals("placeHolder")){
+            handlePlaceHolder(recipientId, mc);
+            return;
+        }
+
+
         if(mc.getType().equals("default")){
             sendTextMessage(recipientId, mc.getText());
             return;
@@ -214,7 +220,23 @@ public class MessengerController {
             return;
         }
 
-
         sendTextMessage(recipientID, "Container button not handled");
     }
+
+    public void handlePlaceHolder(String recipientID, MessageContainer mc){
+
+        ArrayList<String> val = new ArrayList<>();
+
+        for(String s : mc.getPlaceHolder()){
+
+            if(s.equals("balanceAccount")) {
+                double balance = account.getAccount(Integer.toString(mc.getAccountNumber())).getBalance();
+                val.add(Double.toString(balance));
+            }
+        }
+
+        String m = chatBotService.render(mc.getText(), val);
+        sendTextMessage(recipientID, m);
+    }
+
 }
