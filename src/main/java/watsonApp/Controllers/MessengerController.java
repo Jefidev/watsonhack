@@ -199,7 +199,7 @@ public class MessengerController {
             Button.ListBuilder b = Button.newListBuilder();
 
             for(Account a :accList){
-                b.addPostbackButton("account "+ a.getAccountId(), a.getAccountId());
+                b.addPostbackButton("account "+ a.getAccountId(), a.getAccountId()).toList();
             }
 
             final ButtonTemplate buttonTemplate = ButtonTemplate.newBuilder(mc.getText(), b.build()).build();
@@ -210,6 +210,8 @@ public class MessengerController {
             } catch (MessengerIOException e) {
                 e.printStackTrace();
             }
+
+            return;
         }
 
 
