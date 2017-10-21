@@ -28,6 +28,7 @@ import watsonApp.Entities.MessageContainer;
 import watsonApp.Services.AccountService;
 import watsonApp.Services.ChatBotService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -190,7 +191,10 @@ public class MessengerController {
 
     public void handleButtonCase(String recipientID, MessageContainer mc){
 
-        
+        if(mc.getContainer().equals("listAccount")){
+            //Fetching all the account
+            ArrayList<Account> accList = account.getAccounts(account.getClient(recipientID));
 
+        }
     }
 }
