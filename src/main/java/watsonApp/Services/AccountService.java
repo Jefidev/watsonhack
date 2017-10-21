@@ -64,7 +64,7 @@ public class AccountService {
         transactions = new ArrayList<>();
         transactions.add(new Transaction("a", a2, "BE36 4444 5555 5555",
                 "Simon Genin",false, 25.3, date1));
-        transactions.add(new Transaction("b", c2, "BE36 7777 5555 5555",
+        transactions.add(new Transaction("b", c2, "BE36 2222 5555 5555",
                 "Jérôme Fink",true, 25.3, date1));
         transactions.add(new Transaction("c", a2, "BE36 4444 5555 3333",
                 "Burger King",false, 13.99, date1));
