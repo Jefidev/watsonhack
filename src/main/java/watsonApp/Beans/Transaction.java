@@ -1,6 +1,6 @@
 package watsonApp.Beans;
 
-public class Transactions {
+public class Transaction{
 
     private int transactionId;
     private Account account;
@@ -9,6 +9,16 @@ public class Transactions {
     private boolean from; /* = true if it's the other account who execute the transaction, else false.*/
     private double amount;
     private String communication;
+
+    public Transaction(int transactionId, Account account, String otherAccount, String infoOtherAccount, boolean from,
+                        double amount){
+        this.transactionId = transactionId;
+        this.account = account;
+        this.otherAccount = otherAccount;
+        this.infoOtherAccount = infoOtherAccount;
+        this.from = from;
+        this.amount = amount;
+    }
 
     public int getTransactionId() {
         return transactionId;
