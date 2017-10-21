@@ -6,10 +6,14 @@ import com.github.messenger4j.exceptions.MessengerIOException;
 import com.github.messenger4j.exceptions.MessengerVerificationException;
 import com.github.messenger4j.receive.MessengerReceiveClient;
 import com.github.messenger4j.receive.handlers.FallbackEventHandler;
+import com.github.messenger4j.receive.handlers.PostbackEventHandler;
+import com.github.messenger4j.receive.handlers.QuickReplyMessageEventHandler;
 import com.github.messenger4j.receive.handlers.TextMessageEventHandler;
 import com.github.messenger4j.send.MessengerSendClient;
 import com.github.messenger4j.send.NotificationType;
 import com.github.messenger4j.send.Recipient;
+import com.github.messenger4j.send.buttons.Button;
+import com.github.messenger4j.send.templates.ButtonTemplate;
 import com.ibm.watson.developer_cloud.conversation.v1.Conversation;
 import com.ibm.watson.developer_cloud.conversation.v1.model.InputData;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
@@ -19,10 +23,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import watsonApp.Beans.Account;
 import watsonApp.Entities.MessageContainer;
+import watsonApp.Services.AccountService;
 import watsonApp.Services.ChatBotService;
 
 import java.util.Date;
+import java.util.List;
 
 import static com.github.messenger4j.MessengerPlatform.*;
 
@@ -36,6 +43,9 @@ public class MessengerController {
     @Autowired
     ChatBotService chatBotService;
 
+    @Autowired
+    AccountService account;
+
     private final MessengerReceiveClient receiveClient;
     private final MessengerSendClient sendClient;
 
@@ -43,8 +53,10 @@ public class MessengerController {
     public MessengerController(@Value("${messenger4j.appSecret}") final String appSecret,
                                @Value("${messenger4j.verifyToken}") final String verifyToken,
                                final MessengerSendClient sendClient){
+
         this.receiveClient = MessengerPlatform.newReceiveClientBuilder(appSecret, verifyToken)
                 .onTextMessageEvent(newTextMessage())
+                .onPostbackEvent(newPostbackEventHandler())
                 .fallbackEventHandler(newFallbackEventHandler())
                 .build();
 
@@ -58,7 +70,6 @@ public class MessengerController {
     public ResponseEntity<Void> handleCallback(@RequestBody final String payload,
                                                @RequestHeader(SIGNATURE_HEADER_NAME) final String signature) {
 
-        System.out.printf(payload);
         try {
             this.receiveClient.processCallbackPayload(payload, signature);
             return ResponseEntity.status(HttpStatus.OK).build();
@@ -75,8 +86,21 @@ public class MessengerController {
             final String senderId = event.getSender().getId();
             final Date timestamp = event.getTimestamp();
 
-            sendTextMessage(senderId, messageText);
+            account.append(senderId);
+            watsonHandle(senderId, messageText);
         };
+    }
+
+
+    private void sendButtonMessage(String recipientId) throws MessengerApiException, MessengerIOException {
+        final List<Button> buttons = Button.newListBuilder()
+                .addPostbackButton("Account 1", "1").toList()
+                .addPostbackButton("Account 2", "2").toList()
+                .addPostbackButton("Account 3", "3").toList()
+                .build();
+
+        final ButtonTemplate buttonTemplate = ButtonTemplate.newBuilder("Which account", buttons).build();
+        this.sendClient.sendTemplate(recipientId, buttonTemplate);
     }
 
     private void sendTextMessage(String recipientId, String text) {
@@ -85,14 +109,15 @@ public class MessengerController {
             final NotificationType notificationType = NotificationType.REGULAR;
             final String metadata = "DEVELOPER_DEFINED_METADATA";
 
-            MessageContainer reponse = chatBotService.getChatbotResponse(text);
-
-            this.sendClient.sendTextMessage(recipient, notificationType, "bleh", metadata);
+            this.sendClient.sendTextMessage(recipient, notificationType, text, metadata);
         } catch (MessengerApiException | MessengerIOException e) {
             System.out.printf("Oups");
         }
     }
 
+    private void sendGifMessage(String recipientId) throws MessengerApiException, MessengerIOException {
+        this.sendClient.sendImageAttachment(recipientId, " https://media.giphy.com/media/l46CjoMYO5n2hQnWE/giphy.gif");
+    }
 
     /**
      * Webhook verification endpoint.
@@ -119,6 +144,20 @@ public class MessengerController {
         return "bleh";
     }
 
+
+    private PostbackEventHandler newPostbackEventHandler() {
+        return event -> {
+
+            final String senderId = event.getSender().getId();
+            final String recipientId = event.getRecipient().getId();
+            final String payload = event.getPayload();
+            final Date timestamp = event.getTimestamp();
+
+            sendTextMessage(senderId, payload);
+        };
+    }
+
+
     /**
      * This handler is called when either the message is unsupported or when the event handler for the actual event type
      * is not registered. In this showcase all event handlers are registered. Hence only in case of an
@@ -130,4 +169,33 @@ public class MessengerController {
         };
     }
 
+    public void watsonHandle(String recipientId, String message){
+
+        if(message.equals("hello")){
+            sendTextMessage(recipientId, message);
+            try {
+                sendGifMessage(recipientId);
+            } catch (MessengerApiException e) {
+                e.printStackTrace();
+            } catch (MessengerIOException e) {
+                e.printStackTrace();
+            }
+
+            return;
+        }
+
+        if(!message.equals("buttons")){
+            sendTextMessage(recipientId, message);
+            return;
+        }
+
+        try {
+            sendButtonMessage(recipientId);
+        } catch (MessengerApiException e) {
+            e.printStackTrace();
+        } catch (MessengerIOException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

@@ -5,6 +5,14 @@ public class Account {
     private int accountId;
     private String iban;
     private double balance;
+    private Client client;
+
+    public Account(int accountId, String iban, double balance, Client client){
+        this.accountId = accountId;
+        this.iban = iban;
+        this.balance = balance;
+        this.client = client;
+    }
 
     public int getAccountId() {
         return accountId;
@@ -30,5 +38,11 @@ public class Account {
         this.balance = balance;
     }
 
+    public Client getClient() {
+        return client;
+    }
 
+    public void setClient(Client client) {
+        this.client = client;
+    }
 }
