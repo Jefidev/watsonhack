@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import watsonApp.Entities.MessageContainer;
 import watsonApp.Services.ChatBotService;
 
 import java.util.Date;
@@ -84,9 +85,9 @@ public class MessengerController {
             final NotificationType notificationType = NotificationType.REGULAR;
             final String metadata = "DEVELOPER_DEFINED_METADATA";
 
-            String reponse = chatBotService.getChatbotResponse(text);
+            MessageContainer reponse = chatBotService.getChatbotResponse(text);
 
-            this.sendClient.sendTextMessage(recipient, notificationType, reponse, metadata);
+            this.sendClient.sendTextMessage(recipient, notificationType, "bleh", metadata);
         } catch (MessengerApiException | MessengerIOException e) {
             System.out.printf("Oups");
         }
@@ -113,7 +114,9 @@ public class MessengerController {
 
     @RequestMapping("/messenger")
     public String test(){
-        return chatBotService.getChatbotResponse("Hello");
+        chatBotService.getChatbotResponse("Hello");
+
+        return "bleh";
     }
 
     /**

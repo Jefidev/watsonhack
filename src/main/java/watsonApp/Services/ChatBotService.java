@@ -8,6 +8,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
+import watsonApp.Entities.MessageContainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,19 +30,14 @@ public class ChatBotService {
         chatbot.setEndPoint("https://gateway.watsonplatform.net/conversation/api");
     }
 
-    public String getChatbotResponse (String message){
+    public MessageContainer getChatbotResponse (String message){
         InputData input = new InputData.Builder(message).build();
         MessageOptions options = new MessageOptions.Builder(workSpaceID).input(input).context(context).build();
         MessageResponse response = chatbot.message(options).execute();
 
         JSONObject json = new JSONObject(response.toString());
-        JSONObject output = json.getJSONObject("output");
-        JSONArray array = output.getJSONArray("text");
 
-
-        //TODO switch case
-
-        return array.getString(0);
+        return new MessageContainer(json);
     }
 
 }
