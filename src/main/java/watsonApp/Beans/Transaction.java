@@ -8,7 +8,8 @@ public class Transaction{
     private Account account;
     private String otherAccount;
     private String infoOtherAccount;
-    private boolean from; /* = true if it's the other account who execute the transaction, else false.*/
+    private boolean from; /* = true if it's the other account who execute the transaction (so, if it is a money entry),
+                               else false.*/
     private double amount;
     private LocalDateTime date;
     private String communication;
