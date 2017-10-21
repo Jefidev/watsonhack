@@ -16,28 +16,28 @@ public class TestMessageContainer {
 
     @RequestMapping("/francois")
     public String test(){
-        MessageContainer messageContainer=chatBotService.getChatbotResponse("balance account 1");
+        MessageContainer messageContainer=chatBotService.getChatbotResponse("balance account 1", "blabla");
 
         return messageContainer.getText();
     }
 
     @RequestMapping("/domain")
     public String domain(){
-        MessageContainer messageContainer=chatBotService.getChatbotResponse("balance account 1");
+        MessageContainer messageContainer=chatBotService.getChatbotResponse("balance account 1", "blabla");
 
         return messageContainer.getDomain();
     }
 
     @RequestMapping("/json")
     public String testJson(){
-        MessageContainer messageContainer=chatBotService.getChatbotResponse("balance account 1");
+        MessageContainer messageContainer=chatBotService.getChatbotResponse("balance account 1", "blabla");
 
         return messageContainer.getJsonObject().toString();
     }
 
     @RequestMapping("/placeHolder")
     public String placeHolder(){
-        MessageContainer messageContainer=chatBotService.getChatbotResponse("balance account 1");
+        MessageContainer messageContainer=chatBotService.getChatbotResponse("balance account 1", "blabla");
         String[] s = messageContainer.getPlaceHolder();
         System.out.println(s);
         System.out.print("test");
@@ -46,14 +46,14 @@ public class TestMessageContainer {
 
     @RequestMapping("/type")
     public String type(){
-        MessageContainer messageContainer=chatBotService.getChatbotResponse("balance ");
+        MessageContainer messageContainer=chatBotService.getChatbotResponse("balance ", "blabla");
 
         return messageContainer.getType().toString();
     }
 
     @RequestMapping("/container")
     public String cont(){
-        MessageContainer messageContainer=chatBotService.getChatbotResponse("balance ");
+        MessageContainer messageContainer=chatBotService.getChatbotResponse("balance ", "blabla");
 
         return messageContainer.getContainer().toString();
     }

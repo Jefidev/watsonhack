@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import watsonApp.Entities.MessageContainer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -22,7 +23,8 @@ public class ChatBotService {
 
     private Conversation chatbot;
     private final String workSpaceID = "09d2e181-d3ea-4980-a3d9-ab0d554bfd59";
-    private Context context = null;
+
+    private HashMap<String, Context> contextMap;
 
     public ChatBotService(){
         chatbot = new Conversation(Conversation.VERSION_DATE_2016_07_11);
@@ -30,11 +32,16 @@ public class ChatBotService {
         chatbot.setEndPoint("https://gateway.watsonplatform.net/conversation/api");
     }
 
-    public MessageContainer getChatbotResponse (String message){
+    public MessageContainer getChatbotResponse (String message, String id){
+
+        Context context = contextMap.get(id);
+
         InputData input = new InputData.Builder(message).build();
         MessageOptions options = new MessageOptions.Builder(workSpaceID).input(input).context(context).build();
         MessageResponse response = chatbot.message(options).execute();
 
+        context = response.getContext();
+        contextMap.put(id, context);
         JSONObject json = new JSONObject(response.toString());
 
         return new MessageContainer(json);

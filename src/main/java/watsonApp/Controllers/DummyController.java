@@ -24,21 +24,12 @@ public class DummyController {
 
     @RequestMapping("/")
     public String hello(){
-        return accountService.hello() + "11";
+        return accountService.hello() + "12";
     }
 
     @RequestMapping("/database")
-    public List<Account> data(){
-
-        List<Account> accList = accountService.getAccounts(accountService.getClient("1476584332431836"));
-        Button.ListBuilder b = Button.newListBuilder();
-
-        for(Account a :accList){
-            b.addPostbackButton("account "+ a.getAccountId(), a.getAccountId()).toList();
-        }
-
-        final ButtonTemplate buttonTemplate = ButtonTemplate.newBuilder("ouifsjhfdsjbsjhfbsjhbfjshdbfhsbd", b.build()).build();
-        return accountService.getAccounts(accountService.getClient("1476584332431836"));
+    public Account data(){
+        return accountService.getAccount("1234");
     }
 
 }

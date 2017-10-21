@@ -28,9 +28,11 @@ import watsonApp.Entities.MessageContainer;
 import watsonApp.Services.AccountService;
 import watsonApp.Services.ChatBotService;
 
+import javax.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static com.github.messenger4j.MessengerPlatform.*;
 
@@ -93,17 +95,6 @@ public class MessengerController {
     }
 
 
-    private void sendButtonMessage(String recipientId) throws MessengerApiException, MessengerIOException {
-        final List<Button> buttons = Button.newListBuilder()
-                .addPostbackButton("Account 1", "1").toList()
-                .addPostbackButton("Account 2", "2").toList()
-                .addPostbackButton("Account 3", "3").toList()
-                .build();
-
-        final ButtonTemplate buttonTemplate = ButtonTemplate.newBuilder("Which account", buttons).build();
-        this.sendClient.sendTemplate(recipientId, buttonTemplate);
-    }
-
     private void sendTextMessage(String recipientId, String text) {
         try {
             final Recipient recipient = Recipient.newBuilder().recipientId(recipientId).build();
@@ -140,7 +131,7 @@ public class MessengerController {
 
     @RequestMapping("/messenger")
     public String test(){
-        MessageContainer mc = chatBotService.getChatbotResponse("Hello");
+        MessageContainer mc = chatBotService.getChatbotResponse("Hello", "blabla");
 
         return mc.getText();
     }
@@ -154,7 +145,7 @@ public class MessengerController {
             final String payload = event.getPayload();
             final Date timestamp = event.getTimestamp();
 
-            sendTextMessage(senderId, payload);
+            watsonHandle(senderId, payload);
         };
     }
 
@@ -172,7 +163,7 @@ public class MessengerController {
 
     public void watsonHandle(String recipientId, String message){
 
-        MessageContainer mc = chatBotService.getChatbotResponse(message);
+        MessageContainer mc = chatBotService.getChatbotResponse(message, recipientId);
 
         if(mc.getType().equals("button")){
             handleButtonCase(recipientId, mc);
@@ -230,8 +221,19 @@ public class MessengerController {
         for(String s : mc.getPlaceHolder()){
 
             if(s.equals("balanceAccount")) {
-                double balance = account.getAccount(Integer.toString(mc.getAccountNumber())).getBalance();
-                val.add(Double.toString(balance));
+                try {
+                    Account a = account.getAccount(Integer.toString(mc.getAccountNumber()));
+
+                    if (!a.getClient().getClientId().equals(recipientID)) {
+                       throw new NoSuchElementException();
+                    }
+
+                    double balance = a.getBalance();
+                    val.add(Double.toString(balance));
+                }catch (NoSuchElementException e){
+                    sendTextMessage(recipientID, "You don't have access to account " + Integer.toString(mc.getAccountNumber()));
+                    return;
+                }
             }
         }
 
