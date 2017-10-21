@@ -30,7 +30,7 @@ public class AccountService {
         clients.add(simon);
 
         accounts = new ArrayList<>();
-        Account a1 = new Account("00000", "BE36 7777 5555 5555",40.04, jerome);
+        Account a1 = new Account("10000", "BE36 7777 5555 5555",40.04, jerome);
         Account a2 = new Account("12345", "BE36 2222 5555 5555",6739, jerome);
         Account b1 = new Account("99999", "BE36 3333 5555 5555",13.6, sophie);
         Account b2 = new Account("88888", "BE36 8888 5555 5555",2431.03, sophie);

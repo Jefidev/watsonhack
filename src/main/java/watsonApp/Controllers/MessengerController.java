@@ -211,6 +211,8 @@ public class MessengerController {
             return;
         }
 
+
+
         sendTextMessage(recipientID, "Container button not handled");
     }
 
@@ -235,6 +237,15 @@ public class MessengerController {
                     return;
                 }
             }
+
+            if(s.equals("weekSpending")){
+                val.add("140");
+            }
+
+            if(s.equals("weekSpending")){
+                val.add("2130,42");
+            }
+
         }
 
         String m = chatBotService.render(mc.getText(), val);

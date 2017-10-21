@@ -27,6 +27,7 @@ public class ChatBotService {
     private HashMap<String, Context> contextMap;
 
     public ChatBotService(){
+        contextMap = new HashMap<>();
         chatbot = new Conversation(Conversation.VERSION_DATE_2016_07_11);
         chatbot.setUsernameAndPassword("2731ab1f-148e-4802-949d-b016c34ccbf3","P4K6TzWNvZWB");
         chatbot.setEndPoint("https://gateway.watsonplatform.net/conversation/api");
