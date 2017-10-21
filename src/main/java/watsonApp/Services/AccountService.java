@@ -97,9 +97,52 @@ public class AccountService {
         return transactions.stream().filter(t -> t.getTransactionId().equals(transactionId)).findFirst().get();
     }
 
-    public List<Transaction> getTransactions(Client client, Account account, String otherAccount, String infoOtherAccount,
-                                double amount1, double amount2, LocalDateTime date1, LocalDateTime date2, String communication){
-        return null;//transactions.stream().filter().collect(Collectors.toList());
+    public List<Transaction> getTransactions(Client client){
+        return transactions.stream().filter(t -> t.getAccount().getClient().equals(client)).collect(Collectors.toList());
+    }
+
+    public List<Transaction> getTransactions(Account account){
+        return transactions.stream().filter(t -> t.getAccount().equals(account)).collect(Collectors.toList());
+    }
+
+    public List<Transaction> getTransactions(Client client, LocalDateTime date1, LocalDateTime date2){
+        return this.getTransactions(client).stream().filter(t ->
+                t.getDate().isAfter(date1) && t.getDate().isBefore(date2)).collect(Collectors.toList());
+    }
+
+    public List<Transaction> getTransactions(Account account, LocalDateTime date1, LocalDateTime date2){
+        return this.getTransactions(account).stream().filter(t ->
+                t.getDate().isAfter(date1) && t.getDate().isBefore(date2)).collect(Collectors.toList());
+    }
+
+    public List<Transaction> getTransactions(Client client, String otherAccount){
+        return this.getTransactions(client).stream().filter(t ->
+                t.getOtherAccount().equals(otherAccount)).collect(Collectors.toList());
+    }
+
+    public List<Transaction> getTransactions(Account account, String otherAccount){
+        return this.getTransactions(account).stream().filter(t ->
+                t.getOtherAccount().equals(otherAccount)).collect(Collectors.toList());
+    }
+
+    public List<Transaction> getTransactionsWith(Client client, String infoOtherAccount){
+        return this.getTransactions(client).stream().filter(t ->
+                t.getInfoOtherAccount().matches("(.*)" + infoOtherAccount + "(.*)")).collect(Collectors.toList());
+    }
+
+    public List<Transaction> getTransactionsWith(Account account, String infoOtherAccount){
+        return this.getTransactions(account).stream().filter(t ->
+                t.getInfoOtherAccount().matches("(.*)" + infoOtherAccount + "(.*)")).collect(Collectors.toList());
+    }
+
+    public List<Transaction> getTransactionsWithCommu(Client client, String communication){
+        return this.getTransactions(client).stream().filter(t ->
+                t.getInfoOtherAccount().matches("(.*)" + communication + "(.*)")).collect(Collectors.toList());
+    }
+
+    public List<Transaction> getTransactionsWithCommu(Account account, String communication){
+        return this.getTransactions(account).stream().filter(t ->
+                t.getInfoOtherAccount().matches("(.*)" + communication + "(.*)")).collect(Collectors.toList());
     }
 
     public String hello(){
